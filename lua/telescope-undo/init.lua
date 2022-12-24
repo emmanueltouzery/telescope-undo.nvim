@@ -6,6 +6,8 @@ require("telescope-undo.previewer")
 require("telescope-undo.actions")
 require("telescope-undo.lua-timeago")
 
+diff_context_lines = 3
+
 local function _traverse_undotree(entries, level)
   local undolist = {}
   -- create diffs for each entry in our undotree
@@ -40,8 +42,8 @@ local function _traverse_undotree(entries, level)
         diff = diff .. "," .. count_b
       end
       diff = diff .. " @@"
-      -- get front context based on scrolloff
-      for i = start_a - vim.o.scrolloff, start_a - 1 do
+      -- get front context based on diff_context_lines
+      for i = start_a - diff_context_lines, start_a - 1 do
         if buffer_before_lines[i] ~= nil then
           diff = diff .. "\n " .. buffer_before_lines[i]
         end
@@ -59,7 +61,7 @@ local function _traverse_undotree(entries, level)
         ordinal = ordinal .. buffer_after_lines[i]
       end
       -- and finally, get some more context in the back
-      for i = start_a + count_a, start_a + count_a + vim.o.scrolloff - 1 do
+      for i = start_a + count_a, start_a + count_a + diff_context_lines - 1 do
         if buffer_before_lines[i] ~= nil then
           diff = diff .. "\n " .. buffer_before_lines[i]
         end
