@@ -9,9 +9,9 @@ local config = {
   side_by_side = false,
   mappings = {
     i = {
-      ["<cr>"] = require("telescope-undo.actions").yank_additions,
-      ["<S-cr>"] = require("telescope-undo.actions").yank_deletions,
-      ["<C-cr>"] = require("telescope-undo.actions").restore,
+      ["<C-r>a"] = require("telescope-undo.actions").yank_additions,
+      ["<C-r>d"] = require("telescope-undo.actions").yank_deletions,
+      ["<cr>"] = require("telescope-undo.actions").restore,
     },
   },
 }
